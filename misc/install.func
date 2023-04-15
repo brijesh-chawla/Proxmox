@@ -6,8 +6,8 @@ color() {
   GN=$(echo "\033[1;92m")
   DGN=$(echo "\033[32m")
   CL=$(echo "\033[m")
-  RETRY_NUM=10
-  RETRY_EVERY=3
+  RETRY_NUM=3
+  RETRY_EVERY=180
   CM="${GN}✓${CL}"
   CROSS="${RD}✗${CL}"
   BFR="\\r\\033[K"
@@ -67,11 +67,6 @@ setting_up_container() {
     echo 1>&2 -en "${CROSS}${RD} No Network! "
     sleep $RETRY_EVERY
   done
-  if [ "$(hostname -I)" = "" ]; then
-    echo 1>&2 -e "\n${CROSS}${RD} No Network After $RETRY_NUM Tries${CL}"
-    echo -e " 🖧  Check Network Settings"
-    exit 1
-  fi
   msg_ok "Set up Container OS"
   msg_ok "Network Connected: ${BL}$(hostname -I)"
 }
